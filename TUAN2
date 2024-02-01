@@ -1,0 +1,207 @@
+//CONTACT
+package com.example.myapplicationlabbt.Tuan2;
+
+public class Contact {
+    private  String AvatarA43370;
+    private  String NameA43370;
+    private String PhoneA43370;
+
+    public Contact(String avatarA43370, String nameA43370, String phoneA43370) {
+        AvatarA43370 = avatarA43370;
+        NameA43370 = nameA43370;
+        PhoneA43370 = phoneA43370;
+    }
+
+    public String getAvatarA43370() {
+        return AvatarA43370;
+    }
+
+    public void setAvatarA43370(String avatarA43370) {
+        AvatarA43370 = avatarA43370;
+    }
+
+    public String getNameA43370() {
+        return NameA43370;
+    }
+
+    public void setNameA43370(String nameA43370) {
+        NameA43370 = nameA43370;
+    }
+
+    public String getPhoneA43370() {
+        return PhoneA43370;
+    }
+
+    public void setPhoneA43370(String phoneA43370) {
+        PhoneA43370 = phoneA43370;
+    }
+}
+
+
+//CUSTOMADPATER
+
+package com.example.myapplicationlabbt.Tuan2;
+
+import android.content.Context;
+import android.graphics.Color;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
+import android.widget.TextView;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+
+import com.example.myapplicationlabbt.R;
+
+import java.util.List;
+
+public class CustomAdapter extends ArrayAdapter<Contact> {
+    private Context context;
+    private int resource;
+    private List<Contact> objects;
+    private LayoutInflater inflater;
+    public CustomAdapter( Context context, int resource, List<Contact> objects) {
+        super(context, resource, objects);
+        this.context= context;
+        this.resource=resource;
+        this.objects=objects;
+        inflater = (LayoutInflater)context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+
+    }
+
+    @Override
+    public View getView(int position,  View convertView, ViewGroup parent) {
+        ViewHolder holder = new ViewHolder();
+        //THiet lap view////////////////
+        if (convertView==null)//Neu vieew chua co san
+        {
+            //Thiet lap view
+            convertView =inflater.inflate(R.layout.layout,null);
+            holder.tvtAvatarA43370=(TextView) convertView.findViewById(R.id.tvAvatarA43370);
+            holder.tvNameA43370=(TextView) convertView.findViewById(R.id.tvNameA43370);
+            holder.tvPhoneA43370=(TextView) convertView.findViewById(R.id.tvPhoneA43370);
+            convertView.setTag(holder);
+        }
+        else//Neu cos an
+        {
+            //Lay ve
+            holder=(ViewHolder) convertView.getTag();
+        }
+        //gan DL
+        Contact contact = objects.get(position);
+        holder.tvtAvatarA43370.setText(String.valueOf(position));// Lay ve text avatar
+        //holder.tvtAvatarA43370.setBackgroundColor(Color.GREEN);
+        holder.tvNameA43370.setText(contact.getNameA43370());
+        holder.tvPhoneA43370.setText(contact.getPhoneA43370());
+        return convertView;
+    }
+
+    public  class ViewHolder{
+        TextView tvtAvatarA43370,tvNameA43370,tvPhoneA43370;
+    }
+}
+
+
+//TUAN22MAINACCTIVITY
+
+package com.example.myapplicationlabbt.Tuan2;
+
+import androidx.appcompat.app.AppCompatActivity;
+
+import android.os.Bundle;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
+
+import com.example.myapplicationlabbt.R;
+
+public class Tuan22MainActivity extends AppCompatActivity {
+    ListView    lvA43370;
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_tuan22_main);
+        lv=findViewById(R.id.Tuan22lv);
+        //NGuon DL
+        String[] arr=new String[]{"MON1","TUAN2","MON3","MON4","MON5","MON6","A","B"};
+        //ADapter
+        ArrayAdapter<String>
+                adapter=new ArrayAdapter<>(this, android.R.layout.simple_list_item_1,arr);
+        //Hien thi len lv
+        lv.setAdapter(adapter);
+    }
+}
+
+
+//TUAN211MAin
+
+
+package com.example.myapplicationlabbt.Tuan2;
+
+import androidx.appcompat.app.AppCompatActivity;
+
+import android.content.Intent;
+import android.os.Bundle;
+import android.widget.Button;
+import android.widget.EditText;
+
+import com.example.myapplicationlabbt.R;
+
+public class Tuan211MainActivity extends AppCompatActivity {
+    EditText txtA43370, txtA433700;
+    Button btnA43370;
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_tuan211_main);
+        txt1=findViewById(R.id.tuan211txtA43370);
+        txt2=findViewById(R.id.tuan211txtA433700);
+        btn1=findViewById(R.id.tuan211btnA43370);
+        //Tao su kien khi click BT
+        btn1.setOnClickListener(v->{
+            //dinh huong dc
+            Intent i =new Intent(Tuan211MainActivity.this,Tuan211SecondActivity.class);
+            //Dua DL vao
+            i.putExtra("SoA43370",txtA43370.getText().toString());
+            i.putExtra("SoA433700",txtA433700.getText().toString());
+            //Khoi hanh
+            startActivity(i);
+        });
+    }
+}
+
+
+//TUAN221SECOND
+
+package com.example.myapplicationlabbt.Tuan2;
+
+import androidx.appcompat.app.AppCompatActivity;
+
+import android.content.Intent;
+import android.os.Bundle;
+import android.widget.TextView;
+
+import com.example.myapplicationlabbt.R;
+
+public class Tuan211SecondActivity extends AppCompatActivity {
+    TextView tvA43370;
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_tuan211_second);
+        tv1=findViewById(R.id.tuan211tvA43370);
+        //Don DL
+        Intent iA43370=getIntent();
+        //Nhan DL
+        String chuoi1=iA43370.getExtras().getString("SoA43370");
+        String chuoi2=iA43370.getExtras().getString("SoA433700");
+        //.....
+        float   So1=Float.parseFloat(chuoi1);//Chuyen sang so
+        float So2=Float.parseFloat(chuoi2);
+        float Tinhtong=SoA43370+SoA433700;
+        //Hien thi kq
+        tv1.setText(String.valueOf(Tinhtong));
+
+    }
+}
