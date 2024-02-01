@@ -1,0 +1,97 @@
+package com.example.myapplicationbt.Tuan1;
+
+import androidx.appcompat.app.AppCompatActivity;
+
+import android.os.Bundle;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.TextView;
+
+import com.example.myapplicationbt.R;
+
+public class Tuan12MainActivity extends AppCompatActivity {
+    //KHAI BÁO CÁC CONTROL
+    EditText txt1, txt2;
+    Button btn1;
+    TextView tv1;
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_tuan12_main);
+        //ÁNH XẠ CÁC CONTROL
+        txt1 = findViewById(R.id.demo11txt1);
+        txt2 = findViewById(R.id.demo11txt2);
+        btn1 = findViewById(R.id.demo11Btn1);
+        tv1 = findViewById(R.id.demo11tv1);
+        //XỬ LÝ SỰ KIỆN
+        btn1.setOnClickListener(v -> {
+            //GỌI HÀM TÍNH TỔNG
+            tinhtong();
+
+        });
+    }
+
+    private void tinhtong() {
+        //LẤY DỮ LIỆU NHẬP VÀO TỪ edittext1
+        String str1=txt1.getText().toString();
+        float so1=Float.parseFloat(str1); //CHUYEN DU LIEU SANG SO
+        //LẤY DỮ LIỆU NHẬP VÀO TỪ edittext1
+        String str2=txt2.getText().toString();
+        float so2=Float.parseFloat(str2);
+        //TINH TONG
+        float tong=so1+so2;
+        //IN KET QUA RA MAN HINH
+        tv1.setText(String.valueOf(tong));
+    }
+}
+
+
+
+
+
+
+//KOLIN
+package com.example.myapplicationbt.Tuan1
+
+import androidx.appcompat.app.AppCompatActivity
+import android.os.Bundle
+import android.view.View
+import android.widget.EditText
+import com.example.myapplicationbt.R
+
+class Tuan11MainActivity : AppCompatActivity() {
+    //Khai bao cac control
+    var txt1:EditText? =null
+    var txt2:EditText?= null
+    var btn1:EditText? =null
+    var tv1:EditText? =null
+    private fun tinhtong() {
+        //Lay DL nhap vao tu edittext
+        val str1=txt1!!.text.toString()
+        //Chuyen sang kieu so
+        val so1=str1.toFloat()
+        //Lay DL nhap vao tu edittext2
+        val str2=txt2!!.text.toString()
+        //CHuyen sang kieu so
+        val so2=str2.toFloat()
+        //Tinh tong
+        val tong=so1+so2
+        //In kq
+        tv1!!.text=tong.toString()
+    }
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_tuan11_main)
+        //Anh xa
+        txt1=findViewById(R.id.demo11txt1)
+        txt2=findViewById(R.id.demo11txt2)
+        btn1=findViewById(R.id.demo11Btn1)
+        tv1=findViewById(R.id.demo11tv1)
+        //Xu ly su kien
+        btn1!!.setOnClickListener(/* l = */ View.OnClickListener { it:View!
+            tinhtong()
+        })
+    }
+
+}
