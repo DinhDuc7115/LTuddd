@@ -1,0 +1,98 @@
+//TUAN41VOLLEYFN 
+
+
+package com.example.myapplicationlabbt.Tuan4;
+
+import android.content.Context;
+import android.widget.TextView;
+
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonArrayRequest;
+import com.android.volley.toolbox.Volley;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+public class Tuan41VolleyFn {
+    String strJSA43370="";
+    public void getJsonArrayOfObject(Context context, TextView textView)
+    {
+        //Tao Request
+        RequestQueue queue= Volley.newRequestQueue(context);
+        //url
+        String url="file:///E:/android/AndroidStudio/a.txt";
+        //json(url,thanhcong,thatbai)
+        JsonArrayRequest request = new JsonArrayRequest(url,
+                new Response.Listener<JSONArray>() {
+                    @Override
+                    public void onResponse(JSONArray response) {
+                        //CHuyen mang sang cac doi tuong
+                        for (int i=0;i<response.length();i++)
+                        {
+                            try {
+                                JSONObject person = response.getJSONObject(i);//lsy tung doi tuong
+                                String idA43370=person.getString("idA43370");
+                                String nameA43370=person.getString("nameA43370");
+                                String emailA43370=person.getString("emailA43370");
+                                //
+                                strJSA43370 +="idA43370:"+idA43370+"\n";
+                                strJSA43370 +="nameA43370:"+nameA43370+"\n";
+                                strJSA43370 +="emailA43370:"+emailA43370+"\n";
+
+
+                            } catch (JSONException e) {
+                                throw new RuntimeException(e);
+                            }
+                            textView.setText(strJSA43370);
+                        }
+                    }
+                }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                textView.setText(error.getMessage());
+            }
+        });
+        //thuc thi
+        queue.add(request);
+    }
+}
+
+
+//TUAN413MAIN
+
+
+package com.example.myapplicationlabbt.Tuan4;
+
+import androidx.appcompat.app.AppCompatActivity;
+
+import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
+import android.widget.TextView;
+
+import com.example.myapplicationlabbt.R;
+import com.example.myapplicationlabbt.Tuan2.Contact;
+
+public class Tuan413MainActivity extends AppCompatActivity {
+    Button btnGetData;
+    TextView tvKQA43370;
+    Contact contact=this;
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_tuan413_main);
+        Tuan41VolleyFn volleyFn=new Tuan41VolleyFn();
+        tvKQA43370=findViewById(R.id.tuan413tvck);
+        btnGetData=findViewById(R.id.tuan413Btn);
+        btnGetData.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                volleyFn.getJsonArrayOfObject(contact,tvKQA43370);
+
+            }
+        });
+    }
+}
